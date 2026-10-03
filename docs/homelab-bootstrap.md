@@ -12,19 +12,19 @@ Tipo **2**: GitHub is the primary (issues, PRs, wiki). Forgejo is a **pull-mirro
 
 ## Checklist
 
-- [ ] GitHub public repo created
-- [ ] Initial `main` pushed to `github`
+- [x] GitHub public repo created
+- [x] Initial `main` pushed to `github`
 - [ ] Forgejo pull-mirror configured (`8h`, wiki on) — do on LAN
-- [ ] Local remotes `github` + `forgejo`
-- [ ] Branch protection on `main`
-- [ ] Labels + milestones + issue templates
+- [x] Local remotes `github` + `forgejo`
+- [x] Branch protection on `main`
+- [x] Labels + milestones + issue templates
 
 ## Labels
 
 | Label | Role |
 |-------|------|
 | `status:needs-review` / `approved` / `in-progress` / `blocked` / `done` | Workflow |
-| `type:epic` / `type:task` | Epic vs atomic task |
+| `type:epic` / `type:task` / `type:review` | Epic vs atomic vs deferred review |
 | `category:infra` / `docs` / `feature` / `chore` | Category |
 | `milestone-slice` | Counts toward milestone |
 
@@ -49,3 +49,11 @@ Tipo **2**: GitHub is the primary (issues, PRs, wiki). Forgejo is a **pull-mirro
 1. New Migration from `https://github.com/borjalofe/java-tdd-tech-challenge.git`
 2. Pull-mirror `8h0m0s`, wiki on; no issues sync required
 3. `git remote add forgejo forgejo:borja/java-tdd-tech-challenge.git`
+
+## Seed tracker
+
+```bash
+node scripts/bootstrap-github.mjs
+```
+
+Already run once (epics, `[UPDATE]` E00–E59, deferred `[review]`).
