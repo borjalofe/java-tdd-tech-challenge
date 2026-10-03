@@ -1,0 +1,6 @@
+# Distinct topology for DAST (E45) — ZAP vs app (scaffold)
+services:
+  zap:
+    image: ghcr.io/zaproxy/zaproxy:stable
+    profiles: ["dast"]
+    command: ["zap.sh", "-cmd", "-version"]

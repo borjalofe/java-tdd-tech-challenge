@@ -1,0 +1,19 @@
+{
+  "name": "java-tdd-tech-challenge",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@11.18.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "pnpm --dir web dev",
+    "build": "pnpm --dir web build",
+    "preview": "pnpm --dir web preview",
+    "typecheck": "pnpm --dir web typecheck",
+    "lint": "pnpm --dir web lint",
+    "test": "cd kata && mvn -q test -Psolutions,domain",
+    "test:starters": "cd kata && mvn -q test -Pstarters",
+    "generate:curriculum": "node scripts/generate-curriculum.mjs"
+  }
+}

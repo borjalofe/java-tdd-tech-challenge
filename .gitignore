@@ -1,0 +1,12 @@
+node_modules/
+dist/
+target/
+.idea/
+*.iml
+.DS_Store
+web/dist/
+web/node_modules/
+runner/node_modules/
+*.log
+.vite/
+routeTree.gen.ts.bak

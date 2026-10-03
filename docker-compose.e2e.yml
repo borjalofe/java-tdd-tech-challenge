@@ -1,0 +1,6 @@
+# Distinct topology for E2E (E43) — app under test + client network
+services:
+  app:
+    image: eclipse-temurin:17-jre-jammy
+    command: ["sleep", "infinity"]
+    profiles: ["e2e"]

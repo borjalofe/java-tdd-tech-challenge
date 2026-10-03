@@ -1,0 +1,70 @@
+name: suites
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "kata/**"
+      - ".github/workflows/suites.yml"
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - run: cd kata && mvn -B test -Pdomain
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-unit
+          path: kata/target/surefire-reports/
+  solutions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - run: cd kata && mvn -B test -Psolutions
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: evidence-solutions
+          path: kata/target/surefire-reports/
+  # Suite slots for curriculum E38–E46 (profiles land in later [UPDATE] PRs)
+  it:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "IT suite profile reserved (E41 JPA)"
+  functional:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "Functional suite reserved (E42; skip if feature = one endpoint)"
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "E2E uses docker-compose.e2e.yml topology (E43)"
+  sast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "SAST SpotBugs + Dependency-Check (E44)"
+  dast:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "DAST ZAP on docker-compose.dast.yml (E45)"
+  a11y:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "a11y axe + fix findings (E46)"

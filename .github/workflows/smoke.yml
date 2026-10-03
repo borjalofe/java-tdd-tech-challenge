@@ -1,0 +1,39 @@
+name: smoke
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+jobs:
+  web-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.18.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+          cache-dependency-path: web/pnpm-lock.yaml
+      - run: pnpm install
+        working-directory: web
+      - run: pnpm build
+        working-directory: web
+  kata-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+      - name: Domain + solutions
+        run: |
+          if [ -f kata/mvnw ]; then
+            ./kata/mvnw -f kata/pom.xml -B test -Psolutions,domain
+          else
+            (cd kata && mvn -B test -Psolutions,domain)
+          fi
